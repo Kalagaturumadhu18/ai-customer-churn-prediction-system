@@ -1,0 +1,15 @@
+{% extends 'churn/base.html' %}
+{% block title %}Prediction Results | ChurnIQ{% endblock %}
+{% block content %}
+<div class="page-head results-head"><div><p class="eyebrow">MODEL OUTPUT</p><h1>Prediction results</h1><p class="sub">Showing up to 50 rows on this page. Download the CSV for the complete output.</p></div><a class="btn" href="{% url 'download_results' %}">Download CSV ↓</a></div>
+<div class="stats compact">
+  <article class="stat"><span>Total customers</span><strong>{{ total }}</strong></article>
+  <article class="stat"><span>High risk</span><strong class="risk-high">{{ high_risk }}</strong></article>
+  <article class="stat"><span>Medium risk</span><strong class="risk-medium">{{ medium_risk }}</strong></article>
+  <article class="stat"><span>Low risk</span><strong class="risk-low">{{ low_risk }}</strong></article>
+</div>
+<div class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Customer ID</th><th>Churn prediction</th><th>Probability</th><th>Risk level</th></tr></thead><tbody>
+{% for row in rows %}<tr><td>{{ row.customerID|default:"Customer" }}</td><td>{{ row.Churn_Prediction }}</td><td>{{ row.Churn_Probability_Percent }}%</td><td><span class="pill {{ row.Risk_Level|lower }}">{{ row.Risk_Level }}</span></td></tr>{% endfor %}
+</tbody></table></div></div>
+<p class="disclaimer">Predictions are estimates, not guarantees. Use appropriate validation and human review before making business decisions.</p>
+{% endblock %}

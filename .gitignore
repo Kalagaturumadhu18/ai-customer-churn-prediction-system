@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+db.sqlite3
+.env
+media/predictions/*
+!media/predictions/.gitkeep
+ml_models/*.joblib
+.DS_Store

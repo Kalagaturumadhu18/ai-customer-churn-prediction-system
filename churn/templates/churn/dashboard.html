@@ -1,0 +1,19 @@
+{% extends 'churn/base.html' %}
+{% block title %}Dashboard | ChurnIQ{% endblock %}
+{% block content %}
+<section class="hero">
+  <div><p class="eyebrow">CUSTOMER ANALYTICS</p><h1>Understand churn before it happens.</h1><p class="sub">Upload customer records and use a machine-learning model to estimate churn risk.</p><a class="btn" href="{% url 'upload_csv' %}">Analyse customer CSV</a></div>
+  <div class="hero-art"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-center">AI<br><span>CHURN</span></div><span class="dot dot-one"></span><span class="dot dot-two"></span></div>
+</section>
+<div class="section-heading"><div><p class="eyebrow">OVERVIEW</p><h2>Model dashboard</h2></div><span class="status">{% if model_ready %}● Model ready{% else %}● Model not trained{% endif %}</span></div>
+<div class="stats">
+  <article class="stat"><span>Model accuracy</span><strong>{% if metrics %}{{ metrics.accuracy }}%{% else %}—{% endif %}</strong><small>Held-out synthetic test data</small></article>
+  <article class="stat"><span>Customers analysed</span><strong>{{ latest_count }}</strong><small>Latest uploaded CSV</small></article>
+  <article class="stat"><span>High-risk customers</span><strong>{{ high_risk }}</strong><small>Risk score above 60%</small></article>
+</div>
+<div class="grid-two">
+  <article class="panel"><p class="eyebrow">HOW IT WORKS</p><h3>From customer data to churn insight</h3><ol class="steps"><li><b>Upload</b><span>Choose a CSV file with customer details.</span></li><li><b>Predict</b><span>The trained model estimates churn probability.</span></li><li><b>Review</b><span>Explore risk groups and download results.</span></li></ol></article>
+  <article class="panel"><p class="eyebrow">MODEL DETAILS</p><h3>Random Forest Classifier</h3><p class="muted">A scikit-learn pipeline processes numeric and categorical fields, then estimates the probability of churn.</p>{% if metrics %}<div class="metric-line"><span>ROC-AUC</span><b>{{ metrics.roc_auc }}</b></div><div class="metric-line"><span>Training rows</span><b>{{ metrics.training_rows }}</b></div><div class="metric-line"><span>Testing rows</span><b>{{ metrics.testing_rows }}</b></div>{% else %}<p class="notice">Run <code>python manage.py train_churn_model</code> to train the model.</p>{% endif %}</article>
+</div>
+<p class="disclaimer">Demo notice: the included training data is synthetic and intended for learning only. Model scores are not evidence of real-world business performance.</p>
+{% endblock %}
