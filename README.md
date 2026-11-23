@@ -1,3 +1,9 @@
+
+# AI Customer Churn Prediction System
+
+## Live Demo
+[Click Here to View Live Project](https://ai-customer-churn-prediction-system.onrender.com)
+
 # AI Customer Churn Prediction System
 
 A Django + Machine Learning web application that estimates which telecom customers may leave a service. It supports CSV uploads, churn-risk predictions, a results table, and CSV downloads.
